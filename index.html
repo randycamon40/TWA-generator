@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="midnight" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<title>TWA Generator</title>
+<style>
+/* ============ TEMA - BASE ============ */
+:root{
+  --green:#10b981;--red:#ef4444;--yellow:#f59e0b;--blue:#3b82f6;
+  --green-soft:rgba(16,185,129,.14);
+  --red-soft:rgba(239,68,68,.14);
+}
+[data-mode="dark"]{
+  --shadow:0 4px 20px rgba(0,0,0,.35);
+  --shadow-lg:0 10px 40px rgba(0,0,0,.5);
+  --glow:0 0 24px rgba(var(--accent-rgb),.4);
+  --glow-soft:0 0 12px rgba(var(--accent-rgb),.25);
+}
+[data-mode="light"]{
+  --shadow:0 4px 16px rgba(30,30,60,.08);
+  --shadow-lg:0 10px 40px rgba(30,30,60,.12);
+  --glow:0 0 24px rgba(var(--accent-rgb),.3);
+  --glow-soft:0 0 12px rgba(var(--accent-rgb),.2);
+}
+
+/* === TEMA GELAP === */
+[data-theme="midnight"]{
+  --bg:#0a0a0f;--bg-2:#101018;--card:#16161f;--card-2:#1c1c28;
+  --border:#252533;--border-2:#2f2f3f;
+  --text:#f0f0f7;--text-2:#b8b8c8;--text-3:#9292a2;
+  --accent-rgb:99,102,241;--accent:#6366f1;--accent-2:#8b5cf6;--accent-soft:rgba(99,102,241,.16);
+  --input-bg:#0f0f18;--log-bg:#08080d;
+}
+[data-theme="ocean"]{
+  --bg:#06121f;--bg-2:#0a1a2a;--card:#0d1f30;--card-2:#122a3d;
+  --border:#1a3550;--border-2:#234060;
+  --text:#e6f2fc;--text-2:#b0cade;--text-3:#88a3bc;
+  --accent-rgb:14,165,233;--accent:#0ea5e9;--accent-2:#38bdf8;--accent-soft:rgba(14,165,233,.16);
+  --input-bg:#081828;--log-bg:#040e17;
+}
+[data-theme="forest"]{
+  --bg:#06140f;--bg-2:#0a1d15;--card:#0d2218;--card-2:#122b20;
+  --border:#1a3d2b;--border-2:#234d38;
+  --text:#e4f5ea;--text-2:#aaccb8;--text-3:#82a290;
+  --accent-rgb:16,185,129;--accent:#10b981;--accent-2:#34d399;--accent-soft:rgba(16,185,129,.16);
+  --input-bg:#081a12;--log-bg:#03100a;
+}
+[data-theme="sunset"]{
+  --bg:#1a0d08;--bg-2:#24130d;--card:#2a1810;--card-2:#341d14;
+  --border:#4a2a1a;--border-2:#5c3522;
+  --text:#fbe9dd;--text-2:#d8bca4;--text-3:#af8f78;
+  --accent-rgb:249,115,22;--accent:#f97316;--accent-2:#fb923c;--accent-soft:rgba(249,115,22,.16);
+  --input-bg:#1f0f08;--log-bg:#120804;
+}
+[data-theme="rose-dark"]{
+  --bg:#1a0a14;--bg-2:#240e1c;--card:#2a1224;--card-2:#34182c;
+  --border:#4a2338;--border-2:#5c2e48;
+  --text:#fbe6f0;--text-2:#d8aac0;--text-3:#b3829b;
+  --accent-rgb:236,72,153;--accent:#ec4899;--accent-2:#f472b6;--accent-soft:rgba(236,72,153,.16);
+  --input-bg:#1f0c16;--log-bg:#120610;
+}
+[data-theme="mono"]{
+  --bg:#0d0d0d;--bg-2:#141414;--card:#1a1a1a;--card-2:#222222;
+  --border:#2e2e2e;--border-2:#3a3a3a;
+  --text:#eeeeee;--text-2:#b8b8b8;--text-3:#929292;
+  --accent-rgb:140,140,140;--accent:#8c8c8c;--accent-2:#b0b0b0;--accent-soft:rgba(140,140,140,.18);
+  --input-bg:#111111;--log-bg:#050505;
+}
+
+/* === TEMA TERANG === */
+[data-theme="daylight"]{
+  --bg:#f5f5f9;--bg-2:#ffffff;--card:#ffffff;--card-2:#fafafd;
+  --border:#e5e5ee;--border-2:#d5d5e0;
+  --text:#1a1a24;--text-2:#48485c;--text-3:#686878;
+  --accent-rgb:99,102,241;--accent:#6366f1;--accent-2:#8b5cf6;--accent-soft:rgba(99,102,241,.1);
+  --input-bg:#f8f8fc;--log-bg:#0d0d14;
+}
+[data-theme="cream"]{
+  --bg:#faf6f0;--bg-2:#fffdf9;--card:#ffffff;--card-2:#fdf9f3;
+  --border:#ebe2d2;--border-2:#d8cbb5;
+  --text:#2a1f0f;--text-2:#5a4a35;--text-3:#7a6a50;
+  --accent-rgb:217,119,6;--accent:#d97706;--accent-2:#f59e0b;--accent-soft:rgba(217,119,6,.1);
+  --input-bg:#fdf9f3;--log-bg:#1a1208;
+}
+[data-theme="sky"]{
+  --bg:#f0f7ff;--bg-2:#ffffff;--card:#ffffff;--card-2:#f5faff;
+  --border:#d5e5f5;--border-2:#b8d4e8;
+  --text:#0a1f35;--text-2:#3a5a75;--text-3:#5f7f9a;
+  --accent-rgb:2,132,199;--accent:#0284c7;--accent-2:#0ea5e9;--accent-soft:rgba(2,132,199,.1);
+  --input-bg:#f5faff;--log-bg:#081c2e;
+}
+[data-theme="mint"]{
+  --bg:#f0faf5;--bg-2:#ffffff;--card:#ffffff;--card-2:#f5fdf9;
+  --border:#d5ebe0;--border-2:#b8dcc8;
+  --text:#0a2518;--text-2:#3a5a48;--text-3:#5f806e;
+  --accent-rgb:5,150,105;--accent:#059669;--accent-2:#10b981;--accent-soft:rgba(5,150,105,.1);
+  --input-bg:#f5fdf9;--log-bg:#082018;
+}
+[data-theme="lavender"]{
+  --bg:#f7f3ff;--bg-2:#ffffff;--card:#ffffff;--card-2:#faf7ff;
+  --border:#e0d5f0;--border-2:#c8b8e0;
+  --text:#1f0f3a;--text-2:#4a3a6a;--text-3:#6b5b8a;
+  --accent-rgb:139,92,246;--accent:#8b5cf6;--accent-2:#a78bfa;--accent-soft:rgba(139,92,246,.1);
+  --input-bg:#faf7ff;--log-bg:#150a28;
+}
+[data-theme="rose-light"]{
+  --bg:#fff5f8;--bg-2:#ffffff;--card:#ffffff;--card-2:#fff8fa;
+  --border:#f5d5e0;--border-2:#e8b8ca;
+  --text:#3a0f20;--text-2:#6a3a50;--text-3:#8a5a72;
+  --accent-rgb:219,39,119;--accent:#db2777;--accent-2:#ec4899;--accent-soft:rgba(219,39,119,.1);
+  --input-bg:#fff8fa;--log-bg:#2a0814;
+}
+
+/* ============ RESET ============ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{transition:background .3s ease,color .3s ease}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;padding-bottom:60px;min-height:100vh;
+  background-image:radial-gradient(circle at 0% 0%,var(--accent-soft),transparent 40%);
+  background-attachment:fixed;line-height:1.5}
+
+header{position:sticky;top:0;z-index:50;background:var(--bg);background:color-mix(in srgb,var(--bg) 80%,transparent);
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:12px}
+header .logo{width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:var(--glow);flex-shrink:0}
+header h1{font-size:16px;margin:0;font-weight:800;letter-spacing:-.3px}
+header .sub{font-size:10px;color:var(--text-3);font-weight:500;margin-top:-2px}
+header .spacer{flex:1}
+
+.theme-btn{width:38px;height:38px;border-radius:11px;background:var(--card);
+  border:1px solid var(--border);color:var(--text);font-size:17px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s;padding:0}
+.theme-btn:hover{border-color:var(--accent);background:var(--accent-soft)}
+.theme-btn:active{transform:scale(.92)}
+
+/* Theme picker popover */
+.theme-picker{position:fixed;top:60px;right:14px;z-index:60;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:14px;box-shadow:var(--shadow-lg);
+  width:min(340px, calc(100vw - 28px));
+  opacity:0;transform:translateY(-8px) scale(.96);pointer-events:none;
+  transition:.2s cubic-bezier(.2,.9,.3,1.2);transform-origin:top right}
+.theme-picker.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.theme-picker-title{font-size:11px;font-weight:800;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.theme-picker-title:not(:first-child){margin-top:16px}
+.theme-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.theme-swatch{width:100%;aspect-ratio:1;border-radius:10px;
+  border:2px solid var(--border);background:var(--sw-bg);
+  cursor:pointer;padding:0;position:relative;
+  transition:.2s;box-shadow:none}
+.theme-swatch:hover{transform:scale(1.08);border-color:var(--sw-accent);box-shadow:none}
+.theme-swatch::after{content:'';position:absolute;top:50%;left:50%;
+  width:38%;height:38%;transform:translate(-50%,-50%);
+  border-radius:50%;background:var(--sw-accent);
+  box-shadow:0 0 8px var(--sw-accent)}
+.theme-swatch.active{border-color:var(--sw-accent);
+  box-shadow:0 0 0 2px var(--accent-soft), 0 0 12px var(--sw-accent)}
+
+main{padding:16px;display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;
+  box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),transparent);opacity:.6}
+.card h2{font-size:12px;margin:0 0 14px;font-weight:800;color:var(--text);
+  display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.8px}
+.step{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+  border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;font-size:11px;font-weight:800;box-shadow:var(--glow);flex-shrink:0}
+label{display:block;font-size:11px;color:var(--text-3);margin-bottom:6px;margin-top:12px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.card > label:first-of-type{margin-top:0}
+input,select,textarea{width:100%;padding:12px 14px;background:var(--input-bg);color:var(--text);
+  border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;transition:.15s}
+input::placeholder,textarea::placeholder{color:var(--text-3);opacity:.7}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+select{appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239090a0' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:38px}
+textarea{resize:vertical;font-family:ui-monospace,"SF Mono",monospace;font-size:12px}
+button{padding:12px 16px;border-radius:12px;border:none;font-size:13px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;cursor:pointer;
+  font-family:inherit;transition:.15s;position:relative;box-shadow:0 4px 14px rgba(var(--accent-rgb),.3);
+  letter-spacing:.2px}
+button:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(var(--accent-rgb),.4)}
+button:active{transform:scale(.97) translateY(0)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+button.ghost{background:var(--card-2);color:var(--text);border:1.5px solid var(--border);box-shadow:none}
+button.ghost:hover{border-color:var(--accent);background:var(--accent-soft);box-shadow:none}
+button.green{background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 4px 14px rgba(16,185,129,.35)}
+button.green:hover{box-shadow:0 6px 20px rgba(16,185,129,.45)}
+button.full{width:100%}
+.row{display:flex;gap:10px;margin-top:12px}
+.row>*{flex:1}
+
+.pill-group{display:flex;gap:6px;background:var(--card-2);padding:4px;border-radius:14px;
+  border:1px solid var(--border)}
+.pill-group button{flex:1;padding:10px 8px;font-size:12px;background:transparent;
+  color:var(--text-2);box-shadow:none;border-radius:10px;font-weight:600}
+.pill-group button:hover{transform:none;box-shadow:none;color:var(--text)}
+.pill-group button.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;box-shadow:0 4px 12px rgba(var(--accent-rgb),.35)}
+
+.file-input-label{display:block;padding:26px 18px;border:2px dashed var(--border-2);
+  border-radius:16px;text-align:center;color:var(--text-2);font-size:13px;cursor:pointer;
+  transition:.25s;background:var(--card-2);position:relative}
+.file-input-label:hover{border-color:var(--accent);color:var(--accent)}
+.file-input-label:active,.file-input-label.drag{border-color:var(--accent);color:var(--accent);
+  background:var(--accent-soft);transform:scale(.99)}
+.file-input-label input{display:none}
+.file-input-label .icon{font-size:28px;display:block;margin-bottom:8px}
+.file-input-label .ok{color:var(--green);font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px}
+.file-input-label .ok .icon{font-size:22px;margin:0}
+.file-input-label .hint-text{font-size:11px;color:var(--text-3);margin-top:4px}
+
+#log{background:var(--log-bg);border-radius:14px;padding:14px;
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;line-height:1.65;
+  height:380px;min-height:380px;overflow-y:auto;color:#a0a0b0;border:1px solid var(--border);
+  scrollbar-width:thin;scrollbar-color:var(--border-2) transparent}
+#log::-webkit-scrollbar{width:8px}
+#log::-webkit-scrollbar-track{background:transparent}
+#log::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:4px}
+#log::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+#log .ok{color:#4ade80}
+#log .err{color:#f87171}
+#log .info{color:#60a5fa}
+#log .warn{color:#fbbf24}
+#log .sys{color:#c084fc}
+#log div{margin-bottom:3px;word-break:break-word;padding-left:2px}
+
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;
+  background:var(--card-2);border-radius:12px;margin-bottom:8px;gap:12px;
+  border:1px solid var(--border);transition:.15s}
+.file-item:hover{border-color:var(--accent);background:var(--accent-soft)}
+.file-item.highlight{border-color:var(--green);background:var(--green-soft)}
+.file-item .file-icon{width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--accent-soft),transparent);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0}
+.file-item .info{flex:1;min-width:0}
+.file-item .name{font-size:12.5px;font-family:ui-monospace,monospace;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.file-item .name .new-badge{font-size:9px;background:var(--green);color:#fff;padding:1px 5px;border-radius:4px;margin-left:6px;font-weight:800;letter-spacing:.3px}
+.file-item .size{font-size:10.5px;color:var(--text-3);margin-top:2px}
+.file-item button{padding:8px 12px;font-size:11px;flex-shrink:0;box-shadow:none}
+.file-item button:hover{transform:none;box-shadow:var(--glow)}
+.empty{text-align:center;color:var(--text-3);padding:26px 16px;font-size:12.5px;
+  border:1.5px dashed var(--border);border-radius:12px;background:var(--card-2)}
+
+.status-dot{width:9px;height:9px;border-radius:50%;background:var(--text-3);display:inline-block;
+  margin-right:8px;transition:.3s;vertical-align:middle}
+.status-dot.ok{background:var(--green);box-shadow:0 0 10px var(--green)}
+.status-dot.err{background:var(--red);box-shadow:0 0 10px var(--red)}
+.status-dot.busy{background:var(--yellow);box-shadow:0 0 10px var(--yellow);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-wrap{display:flex;align-items:center;margin-top:12px;padding:10px 12px;
+  background:var(--card-2);border-radius:10px;font-size:12px;color:var(--text-2);
+  border:1px solid var(--border)}
+.hint{font-size:11px;color:var(--text-3);margin-top:8px;line-height:1.5}
+.spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;
+  vertical-align:-2px;margin-right:7px}
+@keyframes spin{to{transform:rotate(360deg)}}
+details{margin-top:12px}
+details summary{cursor:pointer;font-size:12px;color:var(--text-2);padding:8px 0;
+  user-select:none;font-weight:600;list-style:none;display:flex;align-items:center;gap:6px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:'▸';transition:.2s;display:inline-block;color:var(--accent);font-weight:800}
+details[open] summary::before{transform:rotate(90deg)}
+details[open] summary{margin-bottom:6px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--card);color:var(--text);padding:12px 20px;border-radius:14px;
+  font-size:13px;font-weight:600;z-index:999;opacity:0;
+  transition:.3s cubic-bezier(.2,.9,.3,1.2);pointer-events:none;border:1px solid var(--border);
+  box-shadow:var(--shadow-lg);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;background:var(--card-2);border-radius:12px;border:1px solid var(--border);margin-top:12px}
+.toggle-row .toggle-info{flex:1;min-width:0}
+.toggle-row .toggle-title{font-size:13px;font-weight:700;color:var(--text)}
+.toggle-row .toggle-desc{font-size:11px;color:var(--text-3);margin-top:2px;line-height:1.4}
+.switch{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;
+  background:var(--border-2);border-radius:26px;transition:.3s}
+.switch .slider::before{content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;
+  background:#fff;border-radius:50%;transition:.3s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.switch input:checked + .slider{background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.switch input:checked + .slider::before{transform:translateX(20px)}
+
+.color-input-row{display:flex;gap:10px;align-items:stretch}
+.color-input-row input[type="color"]{
+  width:52px;height:auto;padding:4px;border-radius:12px;cursor:pointer;
+  background:var(--input-bg);border:1.5px solid var(--border);flex-shrink:0}
+.color-input-row input[type="text"]{
+  flex:1;font-family:ui-monospace,monospace;text-transform:uppercase;letter-spacing:.5px}
+.color-input-row input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+.color-input-row input[type="color"]::-webkit-color-swatch{border:none;border-radius:8px}
+.color-input-row input[type="color"]::-moz-color-swatch{border:none;border-radius:8px}
+
+.card{animation:fadeUp .4s ease backwards}
+.card:nth-child(1){animation-delay:.02s}.card:nth-child(2){animation-delay:.05s}
+.card:nth-child(3){animation-delay:.08s}.card:nth-child(4){animation-delay:.11s}
+.card:nth-child(5){animation-delay:.14s}.card:nth-child(6){animation-delay:.17s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10px;max-width:560px;margin:0 auto}
+
+@media (max-width:400px){
+  main{padding:12px;gap:12px}.card{padding:14px;border-radius:16px}
+  #log{height:320px;min-height:320px}header h1{font-size:15px}
+  .pill-group button{font-size:11px;padding:9px 6px}
+  .theme-picker{right:10px;top:56px}
+  .theme-grid{grid-template-columns:repeat(6,1fr);gap:6px}
+}
+</style>
+<!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) -->
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Theme & status bar -->
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="color-scheme" content="light dark">
+    <!-- Android / Chrome -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="TWA Generator">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TWA Generator">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <!-- Favicon fallback -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<!-- TWA-GENERATOR:END -->
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡</div>
+  <div>
+    <h1>TWA Generator</h1>
+    <div class="sub">Trusted Web Activity builder</div>
+  </div>
+  <div class="spacer"></div>
+  <button class="theme-btn" id="themeBtn" title="Ganti tema">🎨</button>
+</header>
+
+<div class="theme-picker" id="themePicker">
+  <div class="theme-picker-title">🌙 Tema Gelap</div>
+  <div class="theme-grid">
+    <button class="theme-swatch" data-theme="midnight" style="--sw-bg:#0a0a0f;--sw-accent:#6366f1" aria-label="Midnight"></button>
+    <button class="theme-swatch" data-theme="ocean" style="--sw-bg:#06121f;--sw-accent:#0ea5e9" aria-label="Ocean"></button>
+    <button class="theme-swatch" data-theme="forest" style="--sw-bg:#06140f;--sw-accent:#10b981" aria-label="Forest"></button>
+    <button class="theme-swatch" data-theme="sunset" style="--sw-bg:#1a0d08;--sw-accent:#f97316" aria-label="Sunset"></button>
+    <button class="theme-swatch" data-theme="rose-dark" style="--sw-bg:#1a0a14;--sw-accent:#ec4899" aria-label="Rose"></button>
+    <button class="theme-swatch" data-theme="mono" style="--sw-bg:#0d0d0d;--sw-accent:#8c8c8c" aria-label="Mono"></button>
+  </div>
+  <div class="theme-picker-title">☀️ Tema Terang</div>
+  <div class="theme-grid">
+    <button class="theme-swatch" data-theme="daylight" style="--sw-bg:#f5f5f9;--sw-accent:#6366f1" aria-label="Daylight"></button>
+    <button class="theme-swatch" data-theme="cream" style="--sw-bg:#faf6f0;--sw-accent:#d97706" aria-label="Cream"></button>
+    <button class="theme-swatch" data-theme="sky" style="--sw-bg:#f0f7ff;--sw-accent:#0284c7" aria-label="Sky"></button>
+    <button class="theme-swatch" data-theme="mint" style="--sw-bg:#f0faf5;--sw-accent:#059669" aria-label="Mint"></button>
+    <button class="theme-swatch" data-theme="lavender" style="--sw-bg:#f7f3ff;--sw-accent:#8b5cf6" aria-label="Lavender"></button>
+    <button class="theme-swatch" data-theme="rose-light" style="--sw-bg:#fff5f8;--sw-accent:#db2777" aria-label="Rose Light"></button>
+  </div>
+</div>
+
+<main>
+
+  <div class="card">
+    <h2><span class="step">1</span> Import index.html</h2>
+    <label class="file-input-label" id="fileLabel">
+      <input type="file" id="fileInput" accept=".html,text/html">
+      <div id="fileLabelText">
+        <span class="icon">📁</span>
+        Ketuk untuk pilih index.html
+        <div class="hint-text">atau drag &amp; drop file ke sini</div>
+      </div>
+    </label>
+    <div class="hint" id="fileInfo"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span> Konfigurasi AI</h2>
+    <label>Provider</label>
+    <select id="provider"></select>
+    <label>Model</label>
+    <select id="model"></select>
+    <label>API Key</label>
+    <input type="password" id="apiKey" placeholder="sk-... / AIza... / xai-..." autocomplete="off">
+    <div class="row">
+      <button class="ghost" id="testBtn">🔌 Test API</button>
+      <button class="ghost" id="saveKeyBtn">💾 Simpan Key</button>
+    </div>
+    <div class="status-wrap">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Belum dites</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">3</span> Info Aplikasi</h2>
+    <label>Nama Aplikasi</label>
+    <input type="text" id="appName" placeholder="My Awesome App">
+    <label>Short Name</label>
+    <input type="text" id="shortName" placeholder="MyApp">
+    <label>URL / Domain (start_url)</label>
+    <input type="text" id="appUrl" placeholder="https://example.com">
+    <label>Deskripsi Aplikasi</label>
+    <textarea id="appDesc" rows="2" placeholder="Aplikasi untuk..."></textarea>
+    <label>Package Name (Android)</label>
+    <input type="text" id="packageName" placeholder="com.example.app">
+    <details>
+      <summary>Opsi Lanjutan</summary>
+      <label>SHA-256 Fingerprint (assetlinks)</label>
+      <input type="text" id="sha256" placeholder="AA:BB:CC:... (opsional)">
+      <div class="hint">Kosongkan kalau belum ada. Isi pakai output keytool -list -v</div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">4</span> Sumber Icon</h2>
+    <div class="pill-group" id="iconSource">
+      <button data-val="canvas" class="active">🔤 Huruf</button>
+      <button data-val="upload">📤 Upload</button>
+    </div>
+    <div id="canvasOpts">
+      <label>Huruf Icon (1-2 karakter)</label>
+      <input type="text" id="iconChar" maxlength="2" placeholder="A" value="A">
+      <div class="hint">Icon kotak gradient + huruf — simpel & instan</div>
+    </div>
+    <div id="uploadOpts" style="display:none">
+      <label class="file-input-label" id="iconUploadLabel">
+        <input type="file" id="iconUpload" accept="image/png,image/jpeg,image/webp">
+        <div id="iconUploadText">
+          <span class="icon">🖼️</span>
+          Ketuk untuk pilih icon
+          <div class="hint-text">PNG/JPG, disarankan min 512×512</div>
+        </div>
+      </label>
+      <div class="hint" id="iconUploadInfo"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">5</span> Opsi &amp; Generate</h2>
+
+    <div class="toggle-row" style="margin-top:0">
+      <div class="toggle-info">
+        <div class="toggle-title">🔧 Inject TWA ke index.html</div>
+        <div class="toggle-desc">Tambah link manifest, meta, apple-touch-icon, dan script service worker otomatis</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="injectToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">🎨 Theme Color Auto (Runtime)</div>
+        <div class="toggle-desc">Auto switch warna status bar saat user ganti tema sistem real-time (via matchMedia)</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="autoThemeToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div id="autoThemeFields">
+      <label>Warna Status Bar — Mode Terang</label>
+      <div class="color-input-row">
+        <input type="color" id="themeColorLight" value="#f5f5f9">
+        <input type="text" id="themeColorLightHex" value="#f5f5f9" maxlength="7" spellcheck="false">
+      </div>
+      <label>Warna Status Bar — Mode Gelap</label>
+      <div class="color-input-row">
+        <input type="color" id="themeColorDark" value="#0a0a0f">
+        <input type="text" id="themeColorDarkHex" value="#0a0a0f" maxlength="7" spellcheck="false">
+      </div>
+      <div class="hint">Status bar Android & Chrome otomatis ikut tema HP user.</div>
+    </div>
+
+    <div id="singleThemeField" style="display:none">
+      <label>Theme Color (Fixed)</label>
+      <div class="color-input-row">
+        <input type="color" id="themeColorSingle" value="#6366f1">
+        <input type="text" id="themeColorSingleHex" value="#6366f1" maxlength="7" spellcheck="false">
+      </div>
+      <div class="hint">Warna tetap, nggak ngikut tema sistem.</div>
+    </div>
+
+    <button class="full green" id="generateBtn" style="margin-top:14px">⚡ Generate Semua File</button>
+
+    <div style="margin-top:16px">
+      <h2 style="margin-bottom:12px">File Tergenerate</h2>
+      <div id="fileList"><div class="empty">📦 Belum ada file — generate dulu ya</div></div>
+      <button class="full ghost" id="downloadAllBtn" style="margin-top:10px;display:none">⬇️ Unduh Semua File</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Log Aktivitas</h2>
+    <div id="log"></div>
+    <button class="ghost full" id="clearLogBtn" style="margin-top:10px;font-size:11.5px;padding:8px">🗑️ Bersihkan Log</button>
+  </div>
+
+</main>
+
+<footer>TWA Generator • Powered by your choice of AI</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ THEME SYSTEM ============ */
+var THEME_MODES = {
+  'midnight':'dark','ocean':'dark','forest':'dark','sunset':'dark','rose-dark':'dark','mono':'dark',
+  'daylight':'light','cream':'light','sky':'light','mint':'light','lavender':'light','rose-light':'light'
+};
+
+function applyTheme(name){
+  if (!THEME_MODES[name]) name = 'midnight';
+  var mode = THEME_MODES[name];
+  var root = document.documentElement;
+  root.setAttribute('data-theme', name);
+  root.setAttribute('data-mode', mode);
+  try { localStorage.setItem('twa_theme', name); } catch(e){}
+  requestAnimationFrame(function(){
+    try {
+      var bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta && bg) meta.setAttribute('content', bg);
+    } catch(e){}
+  });
+  document.querySelectorAll('.theme-swatch').forEach(function(sw){
+    sw.classList.toggle('active', sw.getAttribute('data-theme') === name);
+  });
+}
+
+function initTheme(){
+  var saved = null;
+  try { saved = localStorage.getItem('twa_theme'); } catch(e){}
+  if (!saved || !THEME_MODES[saved]) {
+    saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'daylight' : 'midnight';
+  }
+  applyTheme(saved);
+}
+initTheme();
+
+var themeBtn = document.getElementById('themeBtn');
+var themePicker = document.getElementById('themePicker');
+themeBtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  themePicker.classList.toggle('open');
+});
+document.addEventListener('click', function(e){
+  if (!themePicker.contains(e.target) && e.target !== themeBtn) {
+    themePicker.classList.remove('open');
+  }
+});
+document.querySelectorAll('.theme-swatch').forEach(function(sw){
+  sw.title = sw.getAttribute('aria-label') || sw.getAttribute('data-theme');
+  sw.addEventListener('click', function(){
+    applyTheme(sw.getAttribute('data-theme'));
+    log('Tema: ' + sw.getAttribute('data-theme'), 'info');
+    themePicker.classList.remove('open');
+  });
+});
+
+/* ============ PROVIDERS ============ */
+var PROVIDERS = {
+  openrouter:{name:'OpenRouter',endpoint:'https://openrouter.ai/api/v1/chat/completions',type:'openai',
+    models:['google/gemini-2.0-flash-exp:free','google/gemini-flash-1.5','anthropic/claude-3.5-sonnet','anthropic/claude-3.5-haiku','meta-llama/llama-3.3-70b-instruct','meta-llama/llama-3.1-8b-instruct:free','deepseek/deepseek-chat','deepseek/deepseek-r1','qwen/qwen-2.5-72b-instruct','mistralai/mistral-large','openai/gpt-4o-mini','x-ai/grok-beta']},
+  gemini:{name:'Google Gemini',endpoint:'',type:'gemini',
+    models:['gemini-2.0-flash','gemini-2.0-flash-lite','gemini-1.5-flash','gemini-1.5-flash-8b','gemini-1.5-pro']},
+  openai:{name:'OpenAI',endpoint:'https://api.openai.com/v1/chat/completions',type:'openai',
+    models:['gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4.1','gpt-4.1-mini','o1-mini','o3-mini']},
+  grok:{name:'xAI Grok',endpoint:'https://api.x.ai/v1/chat/completions',type:'openai',
+    models:['grok-2-latest','grok-2-1212','grok-beta','grok-vision-beta']},
+  deepseek:{name:'DeepSeek',endpoint:'https://api.deepseek.com/v1/chat/completions',type:'openai',
+    models:['deepseek-chat','deepseek-reasoner']},
+  groq:{name:'Groq',endpoint:'https://api.groq.com/openai/v1/chat/completions',type:'openai',
+    models:['llama-3.3-70b-versatile','llama-3.1-8b-instant','llama-3.1-70b-versatile','mixtral-8x7b-32768','gemma2-9b-it']},
+  mistral:{name:'Mistral AI',endpoint:'https://api.mistral.ai/v1/chat/completions',type:'openai',
+    models:['mistral-large-latest','mistral-small-latest','open-mistral-7b','open-mixtral-8x7b']},
+  anthropic:{name:'Anthropic Claude',endpoint:'https://api.anthropic.com/v1/messages',type:'anthropic',
+    models:['claude-3-5-sonnet-20241022','claude-3-5-haiku-20241022','claude-3-opus-20240229']},
+  together:{name:'Together AI',endpoint:'https://api.together.xyz/v1/chat/completions',type:'openai',
+    models:['meta-llama/Llama-3.3-70B-Instruct-Turbo','meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo','Qwen/Qwen2.5-72B-Instruct-Turbo']},
+  perplexity:{name:'Perplexity',endpoint:'https://api.perplexity.ai/chat/completions',type:'openai',
+    models:['llama-3.1-sonar-small-128k-online','llama-3.1-sonar-large-128k-online','llama-3.1-sonar-huge-128k-online']},
+  fireworks:{name:'Fireworks AI',endpoint:'https://api.fireworks.ai/inference/v1/chat/completions',type:'openai',
+    models:['accounts/fireworks/models/llama-v3p3-70b-instruct','accounts/fireworks/models/llama-v3p1-8b-instruct']},
+  cerebras:{name:'Cerebras',endpoint:'https://api.cerebras.ai/v1/chat/completions',type:'openai',
+    models:['llama3.3-70b','llama3.1-8b']},
+  custom:{name:'Custom (OpenAI-compatible)',endpoint:'',type:'openai',models:['custom-model']}
+};
+
+var indexHtml = '';
+var files = [];
+var uploadedIconImg = null;
+var iconSource = 'canvas';
+
+var $ = function(id){ return document.getElementById(id); };
+var providerSel = $('provider');
+var modelSel = $('model');
+var apiKeyInput = $('apiKey');
+var statusDot = $('statusDot');
+var statusText = $('statusText');
+var logEl = $('log');
+
+Object.keys(PROVIDERS).forEach(function(k){
+  var o = document.createElement('option');
+  o.value = k; o.textContent = PROVIDERS[k].name;
+  providerSel.appendChild(o);
+});
+providerSel.value = 'openrouter';
+
+function updateModels(){
+  modelSel.innerHTML = '';
+  PROVIDERS[providerSel.value].models.forEach(function(m){
+    var o = document.createElement('option');
+    o.value = m; o.textContent = m;
+    modelSel.appendChild(o);
+  });
+}
+providerSel.addEventListener('change', updateModels);
+updateModels();
+
+function log(msg, type){
+  var time = new Date().toLocaleTimeString('id-ID');
+  var div = document.createElement('div');
+  div.className = type || '';
+  div.textContent = '[' + time + '] ' + msg;
+  logEl.appendChild(div);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+$('clearLogBtn').addEventListener('click', function(){ logEl.innerHTML = ''; });
+
+var toastTimer;
+function toast(msg){
+  var t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+var savedKey = null;
+try { savedKey = localStorage.getItem('twa_api_key'); } catch(e){}
+if (savedKey) { apiKeyInput.value = savedKey; log('API key dimuat dari localStorage', 'info'); }
+$('saveKeyBtn').addEventListener('click', function(){
+  if (!apiKeyInput.value.trim()) return toast('API key kosong');
+  try { localStorage.setItem('twa_api_key', apiKeyInput.value.trim()); } catch(e){}
+  log('API key disimpan', 'ok');
+  toast('API key disimpan ✓');
+});
+
+/* ============ FILE INPUT ============ */
+var fileInput = $('fileInput');
+var fileLabel = $('fileLabel');
+var fileLabelText = $('fileLabelText');
+
+fileInput.addEventListener('change', function(e){
+  var f = e.target.files[0];
+  if (f) readIndexFile(f);
+});
+['dragover','dragenter'].forEach(function(ev){
+  fileLabel.addEventListener(ev, function(e){ e.preventDefault(); fileLabel.classList.add('drag'); });
+});
+['dragleave','drop'].forEach(function(ev){
+  fileLabel.addEventListener(ev, function(e){ e.preventDefault(); fileLabel.classList.remove('drag'); });
+});
+fileLabel.addEventListener('drop', function(e){
+  var f = e.dataTransfer.files[0];
+  if (f) readIndexFile(f);
+});
+
+function readIndexFile(f){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    indexHtml = e.target.result;
+    fileLabelText.innerHTML = '<span class="ok"><span class="icon">✅</span> ' + escapeHtml(f.name) + '</span><div class="hint-text">Ketuk untuk ganti file</div>';
+    $('fileInfo').textContent = (f.size/1024).toFixed(1) + ' KB • ' + indexHtml.length.toLocaleString() + ' karakter';
+    log('File index.html dimuat: ' + f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)', 'ok');
+    autoFillFromHtml(indexHtml);
+  };
+  reader.readAsText(f);
+}
+
+function autoFillFromHtml(html){
+  try {
+    var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+    if (titleMatch && !$('appName').value) {
+      $('appName').value = titleMatch[1].trim();
+      if (!$('shortName').value) $('shortName').value = titleMatch[1].trim().slice(0, 12);
+    }
+    var descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i);
+    if (descMatch && !$('appDesc').value) {
+      $('appDesc').value = descMatch[1].trim();
+    }
+  } catch(e){}
+}
+
+/* ============ ICON SOURCE ============ */
+var iconSourceEl = $('iconSource');
+iconSourceEl.querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    iconSourceEl.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    iconSource = btn.getAttribute('data-val');
+    $('canvasOpts').style.display = iconSource === 'canvas' ? '' : 'none';
+    $('uploadOpts').style.display = iconSource === 'upload' ? '' : 'none';
+    log('Sumber icon: ' + iconSource, 'info');
+  });
+});
+
+var iconUpload = $('iconUpload');
+iconUpload.addEventListener('change', function(e){
+  var f = e.target.files[0];
+  if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    var img = new Image();
+    img.onload = function(){
+      uploadedIconImg = img;
+      $('iconUploadText').innerHTML = '<span class="ok"><span class="icon">✅</span> ' + escapeHtml(f.name) + '</span><div class="hint-text">Ketuk untuk ganti</div>';
+      $('iconUploadInfo').textContent = 'Original: ' + img.width + '×' + img.height + 'px • ' + (f.size/1024).toFixed(1) + ' KB';
+      if (img.width < 512 || img.height < 512) {
+        $('iconUploadInfo').textContent += ' ⚠️ disarankan min 512×512';
+      }
+      log('Icon upload: ' + f.name + ' (' + img.width + '×' + img.height + ')', 'ok');
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(f);
+});
+
+/* ============ COLOR INPUT BINDING ============ */
+function bindColorInput(pickerId, hexId){
+  var picker = $(pickerId), hex = $(hexId);
+  if (!picker || !hex) return;
+  picker.addEventListener('input', function(){
+    hex.value = picker.value.toUpperCase();
+  });
+  hex.addEventListener('input', function(){
+    var v = hex.value.trim();
+    if (v && v.charAt(0) !== '#') v = '#' + v;
+    if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
+      picker.value = v;
+      hex.value = v.toUpperCase();
+    }
+  });
+}
+bindColorInput('themeColorLight','themeColorLightHex');
+bindColorInput('themeColorDark','themeColorDarkHex');
+bindColorInput('themeColorSingle','themeColorSingleHex');
+
+/* Toggle auto theme */
+var autoThemeToggle = $('autoThemeToggle');
+autoThemeToggle.addEventListener('change', function(){
+  var on = this.checked;
+  $('autoThemeFields').style.display = on ? '' : 'none';
+  $('singleThemeField').style.display = on ? 'none' : '';
+  log('Theme Color Auto (runtime): ' + (on ? 'ON' : 'OFF'), 'info');
+});
+
+/* ============ ICON GENERATORS ============ */
+function generateCanvasIconBlob(size, char, color){
+  return new Promise(function(resolve){
+    var c = document.createElement('canvas');
+    c.width = c.height = size;
+    var ctx = c.getContext('2d');
+    var g = ctx.createLinearGradient(0, 0, size, size);
+    g.addColorStop(0, color || '#6366f1');
+    g.addColorStop(1, '#ec4899');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    ctx.beginPath();
+    ctx.arc(size/2, size/2, size*0.42, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold ' + (size*0.5) + 'px -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText((char || 'A').toUpperCase(), size/2, size/2 + size*0.02);
+    c.toBlob(function(b){ resolve(b); }, 'image/png');
+  });
+}
+
+function resizeImageToBlob(img, size){
+  return new Promise(function(resolve){
+    var c = document.createElement('canvas');
+    c.width = c.height = size;
+    var ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, size, size);
+    c.toBlob(function(b){ resolve(b); }, 'image/png');
+  });
+}
+
+/* ============ TWA INJECTOR ============ */
+/* PENTING: pakai escape hex \x3C untuk karakter kurang-dari dan \x3E untuk lebih-dari
+   supaya string yang berisi tag html tidak bikin HTML parser salah tangkap. */
+var LT = '\x3C';
+var GT = '\x3E';
+var TWA_MARKER_START = LT + '!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) --' + GT;
+var TWA_MARKER_END   = LT + '!-- TWA-GENERATOR:END --' + GT;
+
+function escapeAttr(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function injectTWA(html, opts){
+  var theme = opts.theme;
+  var autoTheme = !!opts.autoTheme;
+  var lightColor = opts.lightColor || '#f5f5f9';
+  var darkColor = opts.darkColor || '#0a0a0f';
+  var appName = opts.appName || 'App';
+  var iconPath = opts.iconPath || '/icon-192.png';
+  var manifestPath = opts.manifestPath || '/manifest.json';
+  var swPath = opts.swPath || '/serviceworker.js';
+
+  /* 1. Bersihkan injeksi lama (idempotent) */
+  var escStart = TWA_MARKER_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var escEnd = TWA_MARKER_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var existingBlock = new RegExp(escStart + '[\\s\\S]*?' + escEnd, 'g');
+  html = html.replace(existingBlock, '');
+
+  /* 2. meta theme-color: pakai dark color sebagai default awal */
+  var metaThemeColor;
+  if (autoTheme) {
+    metaThemeColor = '    ' + LT + 'meta name="theme-color" content="' + escapeAttr(darkColor) + '"' + GT + '\n';
+  } else {
+    metaThemeColor = '    ' + LT + 'meta name="theme-color" content="' + escapeAttr(theme) + '"' + GT + '\n';
+  }
+
+  /* 3. Head block */
+  var headBlock =
+    TWA_MARKER_START + '\n' +
+    '    ' + LT + '!-- PWA Manifest --' + GT + '\n' +
+    '    ' + LT + 'link rel="manifest" href="' + manifestPath + '"' + GT + '\n' +
+    '    ' + LT + '!-- Theme & status bar --' + GT + '\n' +
+    metaThemeColor +
+    '    ' + LT + 'meta name="color-scheme" content="light dark"' + GT + '\n' +
+    '    ' + LT + '!-- Android / Chrome --' + GT + '\n' +
+    '    ' + LT + 'meta name="mobile-web-app-capable" content="yes"' + GT + '\n' +
+    '    ' + LT + 'meta name="application-name" content="' + escapeAttr(appName) + '"' + GT + '\n' +
+    '    ' + LT + '!-- iOS Safari --' + GT + '\n' +
+    '    ' + LT + 'meta name="apple-mobile-web-app-capable" content="yes"' + GT + '\n' +
+    '    ' + LT + 'meta name="apple-mobile-web-app-status-bar-style" content="default"' + GT + '\n' +
+    '    ' + LT + 'meta name="apple-mobile-web-app-title" content="' + escapeAttr(appName) + '"' + GT + '\n' +
+    '    ' + LT + 'link rel="apple-touch-icon" href="' + iconPath + '"' + GT + '\n' +
+    '    ' + LT + '!-- Favicon fallback --' + GT + '\n' +
+    '    ' + LT + 'link rel="icon" type="image/png" sizes="192x192" href="' + iconPath + '"' + GT + '\n' +
+    TWA_MARKER_END;
+
+  /* 4. Body block: runtime script (opsional) + service worker script */
+  var bodyContent = '';
+
+  if (autoTheme) {
+    var runtimeScript =
+      '(function(){\n' +
+      '      var meta = document.querySelector(\'meta[name="theme-color"]\');\n' +
+      '      var light = \'' + escapeAttr(lightColor) + '\';\n' +
+      '      var dark = \'' + escapeAttr(darkColor) + '\';\n' +
+      '      if (!meta) {\n' +
+      '        meta = document.createElement(\'meta\');\n' +
+      '        meta.name = \'theme-color\';\n' +
+      '        document.head.appendChild(meta);\n' +
+      '      }\n' +
+      '      function applyThemeColor(isDark){\n' +
+      '        meta.setAttribute(\'content\', isDark ? dark : light);\n' +
+      '      }\n' +
+      '      var mq = window.matchMedia(\'(prefers-color-scheme: dark)\');\n' +
+      '      applyThemeColor(mq.matches);\n' +
+      '      if (mq.addEventListener) {\n' +
+      '        mq.addEventListener(\'change\', function(e){ applyThemeColor(e.matches); });\n' +
+      '      } else if (mq.addListener) {\n' +
+      '        mq.addListener(function(e){ applyThemeColor(e.matches); });\n' +
+      '      }\n' +
+      '    })();';
+
+    bodyContent +=
+      '    ' + LT + 'script' + GT + '\n' +
+      '      // Theme color runtime (auto switch light/dark)\n' +
+      '      ' + runtimeScript + '\n' +
+      '    ' + LT + '/script' + GT + '\n';
+  }
+
+  var swScript =
+    'if (\'serviceWorker\' in navigator) {\n' +
+    '        window.addEventListener(\'load\', function () {\n' +
+    '          navigator.serviceWorker.register(\'' + swPath + '\')\n' +
+    '            .then(function (reg) { console.log(\'[TWA] Service Worker registered. Scope:\', reg.scope); })\n' +
+    '            .catch(function (err) { console.error(\'[TWA] Service Worker failed:\', err); });\n' +
+    '        });\n' +
+    '      }';
+
+  bodyContent +=
+    '    ' + LT + 'script' + GT + '\n' +
+    '      // Service worker registration\n' +
+    '      ' + swScript + '\n' +
+    '    ' + LT + '/script' + GT + '\n';
+
+  var bodyBlock = TWA_MARKER_START + '\n' + bodyContent + TWA_MARKER_END;
+
+  /* 5. Inject head block */
+  if (/<\/head>/i.test(html)) {
+    html = html.replace(/<\/head>/i, headBlock + '\n</head>');
+  } else if (/<head[^>]*>/i.test(html)) {
+    html = html.replace(/(<head[^>]*>)/i, '$1\n' + headBlock);
+  } else if (/<html[^>]*>/i.test(html)) {
+    html = html.replace(/(<html[^>]*>)/i, '$1\n<head>\n' + headBlock + '\n</head>');
+  } else {
+    html = '<head>\n' + headBlock + '\n</head>\n' + html;
+  }
+
+  /* 6. Inject body block */
+  if (/<\/body>/i.test(html)) {
+    html = html.replace(/<\/body>/i, bodyBlock + '\n<!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) -->
+    <script>
+      // Theme color runtime (auto switch light/dark)
+      (function(){
+      var meta = document.querySelector('meta[name="theme-color"]');
+      var light = '#f5f5f9';
+      var dark = '#0a0a0f';
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = 'theme-color';
+        document.head.appendChild(meta);
+      }
+      function applyThemeColor(isDark){
+        meta.setAttribute('content', isDark ? dark : light);
+      }
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      applyThemeColor(mq.matches);
+      if (mq.addEventListener) {
+        mq.addEventListener('change', function(e){ applyThemeColor(e.matches); });
+      } else if (mq.addListener) {
+        mq.addListener(function(e){ applyThemeColor(e.matches); });
+      }
+    })();
+    </script>
+    <script>
+      // Service worker registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/serviceworker.js')
+            .then(function (reg) { console.log('[TWA] Service Worker registered. Scope:', reg.scope); })
+            .catch(function (err) { console.error('[TWA] Service Worker failed:', err); });
+        });
+      }
+    </script>
+<!-- TWA-GENERATOR:END -->
+</body>');
+  } else if (/<\/html>/i.test(html)) {
+    html = html.replace(/<\/html>/i, bodyBlock + '\n</html>');
+  } else {
+    html = html + '\n' + bodyBlock;
+  }
+
+  return html;
+}
+
+/* ============ AI CALL ============ */
+async function callAI(cfg){
+  var provider = cfg.provider, model = cfg.model, apiKey = cfg.apiKey;
+  var system = cfg.system, prompt = cfg.prompt;
+  var maxTokens = cfg.maxTokens || 8192;
+
+  var p = PROVIDERS[provider];
+  if (!p) throw new Error('Provider tidak dikenal');
+  if (!apiKey) throw new Error('API key kosong');
+
+  if (p.type === 'gemini') {
+    var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = {
+      contents: [{ role:'user', parts:[{ text: prompt }] }],
+      generationConfig: { temperature: 0.6, maxOutputTokens: maxTokens }
+    };
+    if (system) body.systemInstruction = { parts:[{ text: system }] };
+    var r = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    var j = await r.json();
+    if (!r.ok) throw new Error((j.error && j.error.message) || JSON.stringify(j));
+    var cand = j.candidates && j.candidates[0];
+    if (!cand) throw new Error('Tidak ada response dari Gemini');
+    var parts = (cand.content && cand.content.parts) || [];
+    return parts.map(function(x){ return x.text || ''; }).join('');
+  }
+
+  if (p.type === 'anthropic') {
+    var r2 = await fetch(p.endpoint, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({
+        model: model, max_tokens: maxTokens,
+        system: system || undefined,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    var j2 = await r2.json();
+    if (!r2.ok) throw new Error((j2.error && j2.error.message) || JSON.stringify(j2));
+    return (j2.content && j2.content[0] && j2.content[0].text) || '';
+  }
+
+  var msgs = [];
+  if (system) msgs.push({ role:'system', content:system });
+  msgs.push({ role:'user', content:prompt });
+
+  var r3 = await fetch(p.endpoint, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+    body: JSON.stringify({ model: model, messages: msgs, temperature: 0.6, max_tokens: maxTokens })
+  });
+  var j3 = await r3.json();
+  if (!r3.ok) throw new Error((j3.error && j3.error.message) || JSON.stringify(j3));
+  return (j3.choices && j3.choices[0] && j3.choices[0].message && j3.choices[0].message.content) || '';
+}
+
+/* ============ TEST API ============ */
+$('testBtn').addEventListener('click', async function(){
+  var btn = $('testBtn');
+  var provider = providerSel.value, model = modelSel.value;
+  var apiKey = apiKeyInput.value.trim();
+  if (!apiKey) return toast('Isi API key dulu');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Testing...';
+  statusDot.className = 'status-dot busy';
+  statusText.textContent = 'Menguji koneksi...';
+  log('Test API: ' + PROVIDERS[provider].name + ' / ' + model, 'info');
+  try {
+    var t0 = performance.now();
+    var res = await callAI({ provider: provider, model: model, apiKey: apiKey, prompt:'Balas hanya dengan kata: OK', maxTokens: 20 });
+    var ms = Math.round(performance.now() - t0);
+    log('✓ API OK (' + ms + 'ms): "' + res.trim().slice(0,60) + '"', 'ok');
+    statusDot.className = 'status-dot ok';
+    statusText.textContent = '✓ Berhasil (' + ms + 'ms)';
+    toast('API berhasil ✓');
+  } catch (e) {
+    log('✗ API gagal: ' + e.message, 'err');
+    statusDot.className = 'status-dot err';
+    statusText.textContent = '✗ ' + e.message.slice(0, 60);
+    toast('API gagal ✗');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔌 Test API';
+  }
+});
+
+/* ============ JSON EXTRACT ============ */
+function extractJSON(text){
+  text = text.trim();
+  text = text.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  var start = text.indexOf('{'), end = text.lastIndexOf('}');
+  if (start === -1 || end === -1) throw new Error('Tidak ada JSON di response AI');
+  return JSON.parse(text.slice(start, end + 1));
+}
+
+/* ============ GENERATE ============ */
+$('generateBtn').addEventListener('click', async function(){
+  var btn = $('generateBtn');
+  var provider = providerSel.value, model = modelSel.value;
+  var apiKey = apiKeyInput.value.trim();
+  if (!apiKey) return toast('Isi API key dulu');
+  if (!indexHtml) return toast('Import index.html dulu');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Generating...';
+  files = [];
+  renderFiles();
+
+  var appName = $('appName').value.trim() || 'My App';
+  var shortName = $('shortName').value.trim() || appName.slice(0, 12);
+  var appUrl = $('appUrl').value.trim() || 'https://example.com';
+  if (appUrl.slice(-1) === '/') appUrl = appUrl.slice(0, -1);
+  var appDesc = $('appDesc').value.trim() || (appName + ' — aplikasi web yang dapat diinstal di Android dan desktop.');
+  var pkg = $('packageName').value.trim() || 'com.example.app';
+  var sha = $('sha256').value.trim();
+  var iconChar = $('iconChar').value.trim() || appName.charAt(0) || 'A';
+  var doInject = $('injectToggle').checked;
+  var autoTheme = $('autoThemeToggle').checked;
+  var themeLight = $('themeColorLight').value || '#f5f5f9';
+  var themeDark = $('themeColorDark').value || '#0a0a0f';
+  var themeSingle = $('themeColorSingle').value || '#6366f1';
+  var themeForManifest = autoTheme ? themeDark : themeSingle;
+
+  log('=== Mulai generate ===', 'sys');
+  log('Provider: ' + PROVIDERS[provider].name + ' / ' + model, 'info');
+  log('Sumber icon: ' + iconSource, 'info');
+  log('Inject TWA: ' + (doInject ? 'YA' : 'TIDAK') + ' • Theme auto: ' + (autoTheme ? 'YA' : 'TIDAK'), 'info');
+  if (autoTheme) {
+    log('Theme color → light: ' + themeLight + ' / dark: ' + themeDark, 'info');
+  } else {
+    log('Theme color (fixed): ' + themeSingle, 'info');
+  }
+  if (!sha) log('⚠ SHA-256 kosong — assetlinks pakai placeholder, TWA belum terverifikasi', 'warn');
+
+  try {
+    /* ICONS */
+    log('Membuat icons...', 'info');
+    var icon192, icon512;
+
+    if (iconSource === 'canvas') {
+      icon192 = await generateCanvasIconBlob(192, iconChar, themeForManifest);
+      icon512 = await generateCanvasIconBlob(512, iconChar, themeForManifest);
+      log('✓ Icon Canvas dibuat (huruf "' + iconChar.toUpperCase() + '")', 'ok');
+    } else if (iconSource === 'upload') {
+      if (!uploadedIconImg) throw new Error('Upload icon dulu!');
+      icon192 = await resizeImageToBlob(uploadedIconImg, 192);
+      icon512 = await resizeImageToBlob(uploadedIconImg, 512);
+      log('✓ Icon dari upload di-resize ke 192 & 512', 'ok');
+    }
+
+    addFile('icon-192.png', icon192);
+    addFile('icon-512.png', icon512);
+
+    /* INJECT TWA */
+    if (doInject) {
+      log('Inject tag TWA ke index.html...', 'info');
+      var injected = injectTWA(indexHtml, {
+        theme: themeSingle,
+        autoTheme: autoTheme,
+        lightColor: themeLight,
+        darkColor: themeDark,
+        appName: appName
+      });
+      var injectedBlob = new Blob([injected], { type: 'text/html;charset=utf-8' });
+      var addedChars = injected.length - indexHtml.length;
+      addFile('index.html', injectedBlob, { highlight: true, badge: 'TWA' });
+      log('✓ index.html di-inject TWA (+' + addedChars.toLocaleString() + ' karakter)', 'ok');
+    } else {
+      log('Inject dimatikan, skip index.html', 'warn');
+    }
+
+    /* AI FILE GENERATION */
+    var truncatedHtml = indexHtml.length > 6000 ? indexHtml.slice(0, 6000) + '\n... [dipotong]' : indexHtml;
+    var system = 'Kamu adalah generator konfigurasi TWA (Trusted Web Activity) untuk Android + PWA. Output HARUS JSON valid tanpa markdown fence, tanpa penjelasan tambahan.';
+
+    var themePrompt = autoTheme
+      ? 'theme_color "' + themeForManifest + '" (dark variant; runtime akan switch ke "' + themeLight + '" saat light mode)'
+      : 'theme_color "' + themeForManifest + '" (fixed)';
+
+    var prompt = 'Buat file-file konfigurasi TWA/PWA untuk aplikasi berikut.\n\n' +
+      'INFORMASI APLIKASI:\n' +
+      '- Nama: ' + appName + '\n' +
+      '- Short name: ' + shortName + '\n' +
+      '- Deskripsi: ' + appDesc + '\n' +
+      '- URL / start_url: ' + appUrl + '\n' +
+      '- Package name (Android): ' + pkg + '\n' +
+      '- ' + themePrompt + '\n' +
+      '- SHA-256 fingerprint: ' + (sha || '(belum ada, gunakan placeholder "AA:BB:CC:DD:EE:FF:00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33:44:55:66:77:88:99")') + '\n\n' +
+      'KONTEN index.html (referensi):\n```\n' + truncatedHtml + '\n```\n\n' +
+      'Hasilkan JSON dengan KUNCI TEPAT seperti ini (value = string isi file):\n' +
+      '{\n' +
+      '  "manifest.json": "<isi manifest.json valid>",\n' +
+      '  "serviceworker.js": "<service worker dengan cache-first untuk asset, network-first untuk HTML>",\n' +
+      '  "assetlinks.json": "<array Digital Asset Links yang benar>",\n' +
+      '  "privacy.html": "<halaman privacy policy HTML lengkap dengan styling inline sederhana>",\n' +
+      '  "terms.html": "<halaman terms of service HTML lengkap>",\n' +
+      '  "vercel.json": "<konfigurasi Vercel: header Content-Type untuk assetlinks.json dan manifest.json>",\n' +
+      '  "netlify.toml": "<konfigurasi Netlify: redirect, headers untuk assetlinks.json dan manifest.json>"\n' +
+      '}\n\n' +
+      'PENTING:\n' +
+      '- manifest.json WAJIB berisi: name "' + appName + '", short_name "' + shortName + '", description "' + appDesc + '", start_url "' + appUrl + '/", scope "' + appUrl + '/", display "standalone", ' + themePrompt + ', icons 192 & 512 (maskable any), orientation "portrait".\n' +
+      '- serviceworker.js: cache name dengan versi, precache index.html, install/activate/fetch handler yang benar.\n' +
+      '- assetlinks.json: relation "delegate_permission/common.handle_all_urls", namespace "android_app", package_name "' + pkg + '", sha256_cert_fingerprints array.\n' +
+      '- vercel.json & netlify.toml: Content-Type application/json untuk /.well-known/assetlinks.json.\n' +
+      '- Return HANYA JSON, tanpa markdown fence.';
+
+    log('Meminta AI generate file konfigurasi...', 'info');
+    var t0 = performance.now();
+    var raw = await callAI({ provider: provider, model: model, apiKey: apiKey, system: system, prompt: prompt, maxTokens: 8192 });
+    var ms = Math.round(performance.now() - t0);
+    log('✓ Response AI diterima (' + ms + 'ms, ' + raw.length.toLocaleString() + ' karakter)', 'ok');
+
+    var data;
+    try { data = extractJSON(raw); }
+    catch (e) {
+      log('Gagal parse JSON: ' + e.message, 'err');
+      log('Raw preview: ' + raw.slice(0, 200), 'warn');
+      throw new Error('Response AI bukan JSON valid');
+    }
+
+    var expected = ['manifest.json','serviceworker.js','assetlinks.json','privacy.html','terms.html','vercel.json','netlify.toml'];
+    for (var i = 0; i < expected.length; i++) {
+      var key = expected[i];
+      if (data[key]) {
+        var content = typeof data[key] === 'string' ? data[key] : JSON.stringify(data[key], null, 2);
+        var mime = key.indexOf('.json') > -1 ? 'application/json' : 'text/plain';
+        addFile(key, new Blob([content], {type:mime}));
+        log('✓ ' + key + ' (' + content.length.toLocaleString() + ' bytes)', 'ok');
+      } else {
+        log('⚠ ' + key + ' tidak ada di response AI', 'warn');
+      }
+    }
+    log('=== Selesai ✓ ===', 'sys');
+    toast('Generate selesai ✓');
+  } catch (e) {
+    log('✗ Error: ' + e.message, 'err');
+    toast('Generate gagal');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Generate Semua File';
+  }
+});
+
+/* ============ FILE MANAGEMENT ============ */
+function addFile(name, blob, opts){
+  var entry = { name: name, blob: blob, size: blob.size };
+  if (opts) {
+    if (opts.highlight) entry.highlight = true;
+    if (opts.badge) entry.badge = opts.badge;
+  }
+  files.push(entry);
+  renderFiles();
+}
+function getFileIcon(name){
+  if (name.endsWith('.json')) return '🧩';
+  if (name.endsWith('.png')) return '🖼️';
+  if (name.endsWith('.html')) return '📄';
+  if (name.endsWith('.js')) return '📜';
+  if (name.endsWith('.toml')) return '⚙️';
+  return '📁';
+}
+function renderFiles(){
+  var list = $('fileList');
+  if (files.length === 0) {
+    list.innerHTML = '<div class="empty">📦 Belum ada file — generate dulu ya</div>';
+    $('downloadAllBtn').style.display = 'none';
+    return;
+  }
+  $('downloadAllBtn').style.display = 'block';
+  list.innerHTML = '';
+  files.forEach(function(f){
+    var div = document.createElement('div');
+    div.className = 'file-item' + (f.highlight ? ' highlight' : '');
+    var html = '<div class="file-icon">' + getFileIcon(f.name) + '</div>' +
+      '<div class="info">' +
+        '<div class="name">' + escapeHtml(f.name) + (f.badge ? '<span class="new-badge">' + escapeHtml(f.badge) + '</span>' : '') + '</div>' +
+        '<div class="size">' + formatSize(f.size) + '</div>' +
+      '</div>' +
+      '<button class="ghost">⬇ Unduh</button>';
+    div.innerHTML = html;
+    div.querySelector('button').addEventListener('click', function(){ downloadFile(f); });
+    list.appendChild(div);
+  });
+}
+function formatSize(b){
+  if (b < 1024) return b + ' B';
+  if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
+  return (b/1024/1024).toFixed(2) + ' MB';
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function downloadFile(f){
+  var url = URL.createObjectURL(f.blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = f.name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  log('⬇ Mengunduh: ' + f.name, 'info');
+}
+$('downloadAllBtn').addEventListener('click', function(){
+  if (files.length === 0) return;
+  log('Mengunduh ' + files.length + ' file...', 'info');
+  files.forEach(function(f, i){ setTimeout(function(){ downloadFile(f); }, i * 250); });
+  toast('Mengunduh ' + files.length + ' file');
+});
+
+/* ============ AUTO-ASSOCIATE LABEL ============ */
+document.querySelectorAll('label').forEach(function(lbl){
+  if (lbl.querySelector('input')) return;
+  var el = lbl.nextElementSibling;
+  if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') && el.id) {
+    lbl.htmlFor = el.id;
+  } else if (el && el.classList && el.classList.contains('color-input-row')) {
+    var inner = el.querySelector('input');
+    if (inner && inner.id) lbl.htmlFor = inner.id;
+  }
+});
+
+/* ============ INIT ============ */
+log('TWA Generator siap digunakan ✨', 'sys');
+log('Langkah: 1) Import index.html → 2) Setup AI → 3) Info → 4) Icon → 5) Generate', 'info');
+</script>
+
+</body>
+</html>
