@@ -1,7 +1,7 @@
 {
   "name": "TWA Generator",
   "short_name": "TWA Gen",
-  "deskription": "Build Trusted Web Activity apps faster. Generate manifest, service worker, and icons with AI assistance.",
+  "description": "Build Trusted Web Activity apps faster. Generate manifest, service worker, and icons with AI assistance.",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#0a0a0f",
