@@ -1,4 +1,4 @@
-const CACHE_NAME = 'twa-generator-cache-v1';
+const CACHE_NAME = 'twa-generator-cache-v1.2';
 const CACHE_ASSETS = [
   '/',
   '/index.html',
