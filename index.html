@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#0a0a0f">
 <title>TWA Generator</title>
 <style>
-/* ============ TEMA - BASE ============ */
 :root{
   --green:#10b981;--red:#ef4444;--yellow:#f59e0b;--blue:#3b82f6;
   --green-soft:rgba(16,185,129,.14);
@@ -24,8 +23,6 @@
   --glow:0 0 24px rgba(var(--accent-rgb),.3);
   --glow-soft:0 0 12px rgba(var(--accent-rgb),.2);
 }
-
-/* === TEMA GELAP === */
 [data-theme="midnight"]{
   --bg:#0a0a0f;--bg-2:#101018;--card:#16161f;--card-2:#1c1c28;
   --border:#252533;--border-2:#2f2f3f;
@@ -68,8 +65,6 @@
   --accent-rgb:140,140,140;--accent:#8c8c8c;--accent-2:#b0b0b0;--accent-soft:rgba(140,140,140,.18);
   --input-bg:#111111;--log-bg:#050505;
 }
-
-/* === TEMA TERANG === */
 [data-theme="daylight"]{
   --bg:#f5f5f9;--bg-2:#ffffff;--card:#ffffff;--card-2:#fafafd;
   --border:#e5e5ee;--border-2:#d5d5e0;
@@ -112,15 +107,12 @@
   --accent-rgb:219,39,119;--accent:#db2777;--accent-2:#ec4899;--accent-soft:rgba(219,39,119,.1);
   --input-bg:#fff8fa;--log-bg:#2a0814;
 }
-
-/* ============ RESET ============ */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{transition:background .3s ease,color .3s ease}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
   background:var(--bg);color:var(--text);font-size:14px;padding-bottom:60px;min-height:100vh;
   background-image:radial-gradient(circle at 0% 0%,var(--accent-soft),transparent 40%);
   background-attachment:fixed;line-height:1.5}
-
 header{position:sticky;top:0;z-index:50;background:var(--bg);background:color-mix(in srgb,var(--bg) 80%,transparent);
   backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:12px}
@@ -131,14 +123,11 @@ header .logo{width:34px;height:34px;border-radius:10px;
 header h1{font-size:16px;margin:0;font-weight:800;letter-spacing:-.3px}
 header .sub{font-size:10px;color:var(--text-3);font-weight:500;margin-top:-2px}
 header .spacer{flex:1}
-
 .theme-btn{width:38px;height:38px;border-radius:11px;background:var(--card);
   border:1px solid var(--border);color:var(--text);font-size:17px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;transition:.2s;padding:0}
 .theme-btn:hover{border-color:var(--accent);background:var(--accent-soft)}
 .theme-btn:active{transform:scale(.92)}
-
-/* Theme picker popover */
 .theme-picker{position:fixed;top:60px;right:14px;z-index:60;
   background:var(--card);border:1px solid var(--border);border-radius:16px;
   padding:14px;box-shadow:var(--shadow-lg);
@@ -161,7 +150,6 @@ header .spacer{flex:1}
   box-shadow:0 0 8px var(--sw-accent)}
 .theme-swatch.active{border-color:var(--sw-accent);
   box-shadow:0 0 0 2px var(--accent-soft), 0 0 12px var(--sw-accent)}
-
 main{padding:16px;display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto}
 .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;
   box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}
@@ -196,7 +184,6 @@ button.green:hover{box-shadow:0 6px 20px rgba(16,185,129,.45)}
 button.full{width:100%}
 .row{display:flex;gap:10px;margin-top:12px}
 .row>*{flex:1}
-
 .pill-group{display:flex;gap:6px;background:var(--card-2);padding:4px;border-radius:14px;
   border:1px solid var(--border)}
 .pill-group button{flex:1;padding:10px 8px;font-size:12px;background:transparent;
@@ -204,7 +191,6 @@ button.full{width:100%}
 .pill-group button:hover{transform:none;box-shadow:none;color:var(--text)}
 .pill-group button.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:#fff;box-shadow:0 4px 12px rgba(var(--accent-rgb),.35)}
-
 .file-input-label{display:block;padding:26px 18px;border:2px dashed var(--border-2);
   border-radius:16px;text-align:center;color:var(--text-2);font-size:13px;cursor:pointer;
   transition:.25s;background:var(--card-2);position:relative}
@@ -216,7 +202,6 @@ button.full{width:100%}
 .file-input-label .ok{color:var(--green);font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px}
 .file-input-label .ok .icon{font-size:22px;margin:0}
 .file-input-label .hint-text{font-size:11px;color:var(--text-3);margin-top:4px}
-
 #log{background:var(--log-bg);border-radius:14px;padding:14px;
   font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;line-height:1.65;
   height:380px;min-height:380px;overflow-y:auto;color:#a0a0b0;border:1px solid var(--border);
@@ -231,7 +216,6 @@ button.full{width:100%}
 #log .warn{color:#fbbf24}
 #log .sys{color:#c084fc}
 #log div{margin-bottom:3px;word-break:break-word;padding-left:2px}
-
 .file-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;
   background:var(--card-2);border-radius:12px;margin-bottom:8px;gap:12px;
   border:1px solid var(--border);transition:.15s}
@@ -250,7 +234,6 @@ button.full{width:100%}
 .file-item button:hover{transform:none;box-shadow:var(--glow)}
 .empty{text-align:center;color:var(--text-3);padding:26px 16px;font-size:12.5px;
   border:1.5px dashed var(--border);border-radius:12px;background:var(--card-2)}
-
 .status-dot{width:9px;height:9px;border-radius:50%;background:var(--text-3);display:inline-block;
   margin-right:8px;transition:.3s;vertical-align:middle}
 .status-dot.ok{background:var(--green);box-shadow:0 0 10px var(--green)}
@@ -278,7 +261,6 @@ details[open] summary{margin-bottom:6px}
   transition:.3s cubic-bezier(.2,.9,.3,1.2);pointer-events:none;border:1px solid var(--border);
   box-shadow:var(--shadow-lg);max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:12px 14px;background:var(--card-2);border-radius:12px;border:1px solid var(--border);margin-top:12px}
 .toggle-row .toggle-info{flex:1;min-width:0}
@@ -292,7 +274,6 @@ details[open] summary{margin-bottom:6px}
   background:#fff;border-radius:50%;transition:.3s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
 .switch input:checked + .slider{background:linear-gradient(135deg,var(--accent),var(--accent-2))}
 .switch input:checked + .slider::before{transform:translateX(20px)}
-
 .color-input-row{display:flex;gap:10px;align-items:stretch}
 .color-input-row input[type="color"]{
   width:52px;height:auto;padding:4px;border-radius:12px;cursor:pointer;
@@ -302,15 +283,12 @@ details[open] summary{margin-bottom:6px}
 .color-input-row input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
 .color-input-row input[type="color"]::-webkit-color-swatch{border:none;border-radius:8px}
 .color-input-row input[type="color"]::-moz-color-swatch{border:none;border-radius:8px}
-
 .card{animation:fadeUp .4s ease backwards}
 .card:nth-child(1){animation-delay:.02s}.card:nth-child(2){animation-delay:.05s}
 .card:nth-child(3){animation-delay:.08s}.card:nth-child(4){animation-delay:.11s}
 .card:nth-child(5){animation-delay:.14s}.card:nth-child(6){animation-delay:.17s}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
 footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10px;max-width:560px;margin:0 auto}
-
 @media (max-width:400px){
   main{padding:12px;gap:12px}.card{padding:14px;border-radius:16px}
   #log{height:320px;min-height:320px}header h1{font-size:15px}
@@ -319,23 +297,6 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
   .theme-grid{grid-template-columns:repeat(6,1fr);gap:6px}
 }
 </style>
-<!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) -->
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <!-- Theme & status bar -->
-    <meta name="theme-color" content="#0a0a0f">
-    <meta name="color-scheme" content="light dark">
-    <!-- Android / Chrome -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="TWA Generator">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="TWA Generator">
-    <link rel="apple-touch-icon" href="/icon-192.png">
-    <!-- Favicon fallback -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<!-- TWA-GENERATOR:END -->
 </head>
 <body>
 
@@ -660,7 +621,6 @@ $('saveKeyBtn').addEventListener('click', function(){
   toast('API key disimpan ✓');
 });
 
-/* ============ FILE INPUT ============ */
 var fileInput = $('fileInput');
 var fileLabel = $('fileLabel');
 var fileLabelText = $('fileLabelText');
@@ -706,7 +666,6 @@ function autoFillFromHtml(html){
   } catch(e){}
 }
 
-/* ============ ICON SOURCE ============ */
 var iconSourceEl = $('iconSource');
 iconSourceEl.querySelectorAll('button').forEach(function(btn){
   btn.addEventListener('click', function(){
@@ -740,7 +699,6 @@ iconUpload.addEventListener('change', function(e){
   reader.readAsDataURL(f);
 });
 
-/* ============ COLOR INPUT BINDING ============ */
 function bindColorInput(pickerId, hexId){
   var picker = $(pickerId), hex = $(hexId);
   if (!picker || !hex) return;
@@ -760,7 +718,6 @@ bindColorInput('themeColorLight','themeColorLightHex');
 bindColorInput('themeColorDark','themeColorDarkHex');
 bindColorInput('themeColorSingle','themeColorSingleHex');
 
-/* Toggle auto theme */
 var autoThemeToggle = $('autoThemeToggle');
 autoThemeToggle.addEventListener('change', function(){
   var on = this.checked;
@@ -769,7 +726,6 @@ autoThemeToggle.addEventListener('change', function(){
   log('Theme Color Auto (runtime): ' + (on ? 'ON' : 'OFF'), 'info');
 });
 
-/* ============ ICON GENERATORS ============ */
 function generateCanvasIconBlob(size, char, color){
   return new Promise(function(resolve){
     var c = document.createElement('canvas');
@@ -804,8 +760,6 @@ function resizeImageToBlob(img, size){
 }
 
 /* ============ TWA INJECTOR ============ */
-/* PENTING: pakai escape hex \x3C untuk karakter kurang-dari dan \x3E untuk lebih-dari
-   supaya string yang berisi tag html tidak bikin HTML parser salah tangkap. */
 var LT = '\x3C';
 var GT = '\x3E';
 var TWA_MARKER_START = LT + '!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) --' + GT;
@@ -827,13 +781,11 @@ function injectTWA(html, opts){
   var manifestPath = opts.manifestPath || '/manifest.json';
   var swPath = opts.swPath || '/serviceworker.js';
 
-  /* 1. Bersihkan injeksi lama (idempotent) */
   var escStart = TWA_MARKER_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   var escEnd = TWA_MARKER_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   var existingBlock = new RegExp(escStart + '[\\s\\S]*?' + escEnd, 'g');
   html = html.replace(existingBlock, '');
 
-  /* 2. meta theme-color: pakai dark color sebagai default awal */
   var metaThemeColor;
   if (autoTheme) {
     metaThemeColor = '    ' + LT + 'meta name="theme-color" content="' + escapeAttr(darkColor) + '"' + GT + '\n';
@@ -841,7 +793,6 @@ function injectTWA(html, opts){
     metaThemeColor = '    ' + LT + 'meta name="theme-color" content="' + escapeAttr(theme) + '"' + GT + '\n';
   }
 
-  /* 3. Head block */
   var headBlock =
     TWA_MARKER_START + '\n' +
     '    ' + LT + '!-- PWA Manifest --' + GT + '\n' +
@@ -861,7 +812,6 @@ function injectTWA(html, opts){
     '    ' + LT + 'link rel="icon" type="image/png" sizes="192x192" href="' + iconPath + '"' + GT + '\n' +
     TWA_MARKER_END;
 
-  /* 4. Body block: runtime script (opsional) + service worker script */
   var bodyContent = '';
 
   if (autoTheme) {
@@ -911,7 +861,6 @@ function injectTWA(html, opts){
 
   var bodyBlock = TWA_MARKER_START + '\n' + bodyContent + TWA_MARKER_END;
 
-  /* 5. Inject head block */
   if (/<\/head>/i.test(html)) {
     html = html.replace(/<\/head>/i, headBlock + '\n</head>');
   } else if (/<head[^>]*>/i.test(html)) {
@@ -922,44 +871,8 @@ function injectTWA(html, opts){
     html = '<head>\n' + headBlock + '\n</head>\n' + html;
   }
 
-  /* 6. Inject body block */
   if (/<\/body>/i.test(html)) {
-    html = html.replace(/<\/body>/i, bodyBlock + '\n<!-- TWA-GENERATOR:START (auto-generated, jangan edit manual) -->
-    <script>
-      // Theme color runtime (auto switch light/dark)
-      (function(){
-      var meta = document.querySelector('meta[name="theme-color"]');
-      var light = '#f5f5f9';
-      var dark = '#0a0a0f';
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.name = 'theme-color';
-        document.head.appendChild(meta);
-      }
-      function applyThemeColor(isDark){
-        meta.setAttribute('content', isDark ? dark : light);
-      }
-      var mq = window.matchMedia('(prefers-color-scheme: dark)');
-      applyThemeColor(mq.matches);
-      if (mq.addEventListener) {
-        mq.addEventListener('change', function(e){ applyThemeColor(e.matches); });
-      } else if (mq.addListener) {
-        mq.addListener(function(e){ applyThemeColor(e.matches); });
-      }
-    })();
-    </script>
-    <script>
-      // Service worker registration
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/serviceworker.js')
-            .then(function (reg) { console.log('[TWA] Service Worker registered. Scope:', reg.scope); })
-            .catch(function (err) { console.error('[TWA] Service Worker failed:', err); });
-        });
-      }
-    </script>
-<!-- TWA-GENERATOR:END -->
-</body>');
+    html = html.replace(/<\/body>/i, bodyBlock + '\n</body>');
   } else if (/<\/html>/i.test(html)) {
     html = html.replace(/<\/html>/i, bodyBlock + '\n</html>');
   } else {
@@ -969,7 +882,6 @@ function injectTWA(html, opts){
   return html;
 }
 
-/* ============ AI CALL ============ */
 async function callAI(cfg){
   var provider = cfg.provider, model = cfg.model, apiKey = cfg.apiKey;
   var system = cfg.system, prompt = cfg.prompt;
@@ -1029,7 +941,6 @@ async function callAI(cfg){
   return (j3.choices && j3.choices[0] && j3.choices[0].message && j3.choices[0].message.content) || '';
 }
 
-/* ============ TEST API ============ */
 $('testBtn').addEventListener('click', async function(){
   var btn = $('testBtn');
   var provider = providerSel.value, model = modelSel.value;
@@ -1059,7 +970,6 @@ $('testBtn').addEventListener('click', async function(){
   }
 });
 
-/* ============ JSON EXTRACT ============ */
 function extractJSON(text){
   text = text.trim();
   text = text.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
@@ -1068,7 +978,6 @@ function extractJSON(text){
   return JSON.parse(text.slice(start, end + 1));
 }
 
-/* ============ GENERATE ============ */
 $('generateBtn').addEventListener('click', async function(){
   var btn = $('generateBtn');
   var provider = providerSel.value, model = modelSel.value;
@@ -1108,7 +1017,6 @@ $('generateBtn').addEventListener('click', async function(){
   if (!sha) log('⚠ SHA-256 kosong — assetlinks pakai placeholder, TWA belum terverifikasi', 'warn');
 
   try {
-    /* ICONS */
     log('Membuat icons...', 'info');
     var icon192, icon512;
 
@@ -1126,7 +1034,6 @@ $('generateBtn').addEventListener('click', async function(){
     addFile('icon-192.png', icon192);
     addFile('icon-512.png', icon512);
 
-    /* INJECT TWA */
     if (doInject) {
       log('Inject tag TWA ke index.html...', 'info');
       var injected = injectTWA(indexHtml, {
@@ -1144,7 +1051,6 @@ $('generateBtn').addEventListener('click', async function(){
       log('Inject dimatikan, skip index.html', 'warn');
     }
 
-    /* AI FILE GENERATION */
     var truncatedHtml = indexHtml.length > 6000 ? indexHtml.slice(0, 6000) + '\n... [dipotong]' : indexHtml;
     var system = 'Kamu adalah generator konfigurasi TWA (Trusted Web Activity) untuk Android + PWA. Output HARUS JSON valid tanpa markdown fence, tanpa penjelasan tambahan.';
 
@@ -1216,7 +1122,6 @@ $('generateBtn').addEventListener('click', async function(){
   }
 });
 
-/* ============ FILE MANAGEMENT ============ */
 function addFile(name, blob, opts){
   var entry = { name: name, blob: blob, size: blob.size };
   if (opts) {
@@ -1282,7 +1187,6 @@ $('downloadAllBtn').addEventListener('click', function(){
   toast('Mengunduh ' + files.length + ' file');
 });
 
-/* ============ AUTO-ASSOCIATE LABEL ============ */
 document.querySelectorAll('label').forEach(function(lbl){
   if (lbl.querySelector('input')) return;
   var el = lbl.nextElementSibling;
@@ -1294,7 +1198,6 @@ document.querySelectorAll('label').forEach(function(lbl){
   }
 });
 
-/* ============ INIT ============ */
 log('TWA Generator siap digunakan ✨', 'sys');
 log('Langkah: 1) Import index.html → 2) Setup AI → 3) Info → 4) Icon → 5) Generate', 'info');
 </script>
