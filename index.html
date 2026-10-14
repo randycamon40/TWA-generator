@@ -313,6 +313,7 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
     <div class="sub">Trusted Web Activity builder</div>
   </div>
   <div class="spacer"></div>
+  <button class="theme-btn" id="resetBtn" title="Reset semua">↺</button>
   <button class="theme-btn" id="themeBtn" title="Ganti tema">🎨</button>
 </header>
 
@@ -350,6 +351,7 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
       </div>
     </label>
     <div class="hint" id="fileInfo"></div>
+    <button class="ghost full" id="clearIndexBtn" style="margin-top:10px;display:none;font-size:11.5px;padding:8px;background:var(--red-soft);color:var(--red);border-color:var(--red)">🗑️ Hapus File index.html</button>
   </div>
 
   <div class="card">
@@ -411,6 +413,7 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
         </div>
       </label>
       <div class="hint" id="iconUploadInfo"></div>
+      <button class="ghost full" id="clearIconBtn" style="margin-top:10px;display:none;font-size:11.5px;padding:8px;background:var(--red-soft);color:var(--red);border-color:var(--red)">🗑️ Hapus Icon</button>
     </div>
   </div>
 
@@ -468,6 +471,7 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
       <h2 style="margin-bottom:12px">File Tergenerate</h2>
       <div id="fileList"><div class="empty">📦 Belum ada file — generate dulu ya</div></div>
       <button class="full ghost" id="downloadAllBtn" style="margin-top:10px;display:none">⬇️ Unduh Semua File</button>
+      <button class="full ghost" id="clearAllFilesBtn" style="margin-top:8px;display:none;background:var(--red-soft);color:var(--red);border-color:var(--red)">🗑️ Hapus Semua File</button>
     </div>
   </div>
 
@@ -553,7 +557,7 @@ var PROVIDERS = {
   openrouter:{name:'OpenRouter',endpoint:'https://openrouter.ai/api/v1/chat/completions',type:'openai',
     models:['google/gemini-2.0-flash-exp:free','google/gemini-flash-1.5','anthropic/claude-3.5-sonnet','anthropic/claude-3.5-haiku','meta-llama/llama-3.3-70b-instruct','meta-llama/llama-3.1-8b-instruct:free','deepseek/deepseek-chat','deepseek/deepseek-r1','qwen/qwen-2.5-72b-instruct','mistralai/mistral-large','openai/gpt-4o-mini','x-ai/grok-beta']},
   gemini:{name:'Google Gemini',endpoint:'',type:'gemini',
-    models:['gemini-2.0-flash','gemini-2.0-flash-lite','gemini-1.5-flash','gemini-1.5-flash-8b','gemini-1.5-pro']},
+    models:['gemini-3.5-flash-lite','gemini-2.0-flash','gemini-2.0-flash-lite','gemini-1.5-flash','gemini-1.5-flash-8b','gemini-1.5-pro']},
   openai:{name:'OpenAI',endpoint:'https://api.openai.com/v1/chat/completions',type:'openai',
     models:['gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4.1','gpt-4.1-mini','o1-mini','o3-mini']},
   grok:{name:'xAI Grok',endpoint:'https://api.x.ai/v1/chat/completions',type:'openai',
@@ -720,6 +724,7 @@ function readIndexFile(f){
     fileLabelText.innerHTML = '<span class="ok"><span class="icon">✅</span> ' + escapeHtml(f.name) + '</span><div class="hint-text">Ketuk untuk ganti file</div>';
     $('fileInfo').textContent = (f.size/1024).toFixed(1) + ' KB • ' + indexHtml.length.toLocaleString() + ' karakter';
     log('File index.html dimuat: ' + f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)', 'ok');
+    $('clearIndexBtn').style.display = 'block';
     autoFillFromHtml(indexHtml);
   };
   reader.readAsText(f);
@@ -732,9 +737,23 @@ function autoFillFromHtml(html){
       $('appName').value = titleMatch[1].trim();
       if (!$('shortName').value) $('shortName').value = titleMatch[1].trim().slice(0, 12);
     }
-    var descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i);
-    if (descMatch && !$('appDesc').value) {
-      $('appDesc').value = descMatch[1].trim();
+    var descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i)
+                 || html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*name=["']description["']/i);
+    var desc = descMatch ? descMatch[1].trim() : '';
+    if (!desc) {
+      var tMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+      if (tMatch) desc = tMatch[1].trim() + ' — aplikasi web yang dapat diinstal di Android dan desktop.';
+    }
+    if (desc) $('appDesc').value = desc;
+    var urlMatch = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)
+                || html.match(/<meta[^>]*property=["']og:url["'][^>]*content=["']([^"']+)["']/i)
+                || html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i)
+                || html.match(/<base[^>]*href=["']([^"']+)["']/i);
+    if (urlMatch) {
+      try {
+        var u = new URL(urlMatch[1]);
+        $('appUrl').value = u.origin + (u.pathname && u.pathname !== '/' ? u.pathname.replace(/\/$/, '') : '');
+      } catch(e){}
     }
   } catch(e){}
 }
@@ -766,6 +785,7 @@ iconUpload.addEventListener('change', function(e){
         $('iconUploadInfo').textContent += ' ⚠️ disarankan min 512×512';
       }
       log('Icon upload: ' + f.name + ' (' + img.width + '×' + img.height + ')', 'ok');
+      $('clearIconBtn').style.display = 'block';
     };
     img.src = ev.target.result;
   };
@@ -1217,9 +1237,11 @@ function renderFiles(){
   if (files.length === 0) {
     list.innerHTML = '<div class="empty">📦 Belum ada file — generate dulu ya</div>';
     $('downloadAllBtn').style.display = 'none';
+    $('clearAllFilesBtn').style.display = 'none';
     return;
   }
   $('downloadAllBtn').style.display = 'block';
+  $('clearAllFilesBtn').style.display = 'block';
   list.innerHTML = '';
   files.forEach(function(f){
     var div = document.createElement('div');
@@ -1229,9 +1251,14 @@ function renderFiles(){
         '<div class="name">' + escapeHtml(f.name) + (f.badge ? '<span class="new-badge">' + escapeHtml(f.badge) + '</span>' : '') + '</div>' +
         '<div class="size">' + formatSize(f.size) + '</div>' +
       '</div>' +
-      '<button class="ghost">⬇ Unduh</button>';
+      '<button class="ghost dl-btn">⬇</button>' +
+      '<button class="ghost del-btn" style="background:var(--red-soft);color:var(--red);border-color:var(--red)">🗑</button>';
     div.innerHTML = html;
-    div.querySelector('button').addEventListener('click', function(){ downloadFile(f); });
+    div.querySelector('.dl-btn').addEventListener('click', function(){ downloadFile(f); });
+    div.querySelector('.del-btn').addEventListener('click', function(){
+      var idx = files.indexOf(f);
+      if (idx > -1) { files.splice(idx, 1); log('🗑 Hapus file: ' + f.name, 'warn'); renderFiles(); }
+    });
     list.appendChild(div);
   });
 }
@@ -1269,6 +1296,53 @@ document.querySelectorAll('label').forEach(function(lbl){
     var inner = el.querySelector('input');
     if (inner && inner.id) lbl.htmlFor = inner.id;
   }
+});
+
+$('clearIndexBtn').addEventListener('click', function(){
+  indexHtml = '';
+  $('fileInput').value = '';
+  fileLabelText.innerHTML = '<span class="icon">📁</span>Ketuk untuk pilih index.html<div class="hint-text">atau drag & drop file ke sini</div>';
+  $('fileInfo').textContent = '';
+  this.style.display = 'none';
+  log('🗑 File index.html dihapus', 'warn');
+});
+
+$('clearIconBtn').addEventListener('click', function(){
+  uploadedIconImg = null;
+  $('iconUpload').value = '';
+  $('iconUploadText').innerHTML = '<span class="icon">🖼️</span>Ketuk untuk pilih icon<div class="hint-text">PNG/JPG, disarankan min 512×512</div>';
+  $('iconUploadInfo').textContent = '';
+  this.style.display = 'none';
+  log('🗑 Icon dihapus', 'warn');
+});
+
+$('clearAllFilesBtn').addEventListener('click', function(){
+  if (files.length === 0) return;
+  var n = files.length;
+  files = [];
+  renderFiles();
+  log('🗑 Semua ' + n + ' file tergenerate dihapus', 'warn');
+});
+
+$('resetBtn').addEventListener('click', function(){
+  if (!confirm('Reset semua? File yang di-import, icon, info aplikasi, dan file tergenerate akan dihapus.')) return;
+  indexHtml = '';
+  files = [];
+  uploadedIconImg = null;
+  $('fileInput').value = '';
+  $('iconUpload').value = '';
+  fileLabelText.innerHTML = '<span class="icon">📁</span>Ketuk untuk pilih index.html<div class="hint-text">atau drag & drop file ke sini</div>';
+  $('iconUploadText').innerHTML = '<span class="icon">🖼️</span>Ketuk untuk pilih icon<div class="hint-text">PNG/JPG, disarankan min 512×512</div>';
+  $('fileInfo').textContent = '';
+  $('iconUploadInfo').textContent = '';
+  ['appName','shortName','appUrl','appDesc','packageName','sha256'].forEach(function(id){ $(id).value = ''; });
+  $('clearIndexBtn').style.display = 'none';
+  $('clearIconBtn').style.display = 'none';
+  renderFiles();
+  logEl.innerHTML = '';
+  log('↺ Semua direset', 'warn');
+  log('TWA Generator siap digunakan ✨', 'sys');
+  toast('Reset selesai ↺');
 });
 
 log('TWA Generator siap digunakan ✨', 'sys');
