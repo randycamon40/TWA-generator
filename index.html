@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0f">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <title>TWA Generator</title>
 <style>
 :root{
@@ -475,6 +478,16 @@ footer{text-align:center;font-size:11px;color:var(--text-3);padding:20px 16px 10
 
 <footer>TWA Generator • Powered by your choice of AI</footer>
 <div class="toast" id="toast"></div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/serviceworker.js')
+      .then(function (reg) { console.log('[PWA] SW registered:', reg.scope); })
+      .catch(function (err) { console.error('[PWA] SW failed:', err); });
+  });
+}
+</script>
 
 <script>
 /* ============ THEME SYSTEM ============ */
